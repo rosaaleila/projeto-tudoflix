@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./js/main.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="./css/home.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/cards.css">
+    <link rel="stylesheet" type="text/css" href="./css/pesquisa.css">
+    <title>TudoFlix</title>
+</head>
+
+<body>
+    <header>
+        <div class="container-logo">
+            <a href="./index.html"><img class="logo" src="./imgs/logo.png" alt=""></a>
+        </div>
+        <nav class="container-navegacao">
+            <ul class="lista-navegacao">
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="#populares">Populares</a></li>
+                <li><a href="#embreve">Em breve</a></li>
+                <li><a href="">Categorias</a></li>
+                <li><input type="search" placeholder="Pesquisar" id="pesquisar"></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container-principal" id="container-principal">
+        <section class="home" id="home">
+            <div class="container-home" id="container-home">
+                <div class="container-infos">
+                    <h1 id="titulo"></h1>
+                    <p id="descricao"></p>
+                    <div class="container-button">
+                        <button class="btnAssistir">Assistir</button>
+                        <button class="btnSaibaMais">Saiba mais</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <section class="cards-sessao">
+            <div id="populares" class="container-cards-maiscurtidos">
+                <h2>Mais curtidos</h2>
+                <div class="container-maiscurtidos" id="container-mais-curtidos"></div>
+            </div>
+            <div id="embreve" class="container-cards-lancamentos">
+                <h2>Em breve</h2>
+                <div class="container-lancamentos" id="container-lancamentos"></div>
+            </div>
+        </section>
+        <section class="cards-series">
+            <div class="container-cards-populares">
+                <h2>Séries populares</h2>
+                <div class="container-populares" id="container-populares"></div>
+            </div>
+            <div class="container-cards-bemavaliados">
+                <h2>Séries bem avaliadas</h2>
+                <div class="container-bemavaliados" id="container-bemavaliados"></div>
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>

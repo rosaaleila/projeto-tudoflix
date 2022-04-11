@@ -1,0 +1,43 @@
+.container-home {
+    height: 100%;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #0007;
+    background-blend-mode: darken;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 5% 5%;
+}
+
+.container-infos h1 {
+    font-size: 3rem;
+}
+
+.container-infos p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    max-width: 50%;
+}
+
+.container-infos {
+    display: flex;
+    flex-direction: column;
+}
+
+.container-button button {
+    width: 150px;
+    height: 40px;
+    border: none;
+    background-color: black;
+    color: whitesmoke;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    cursor: pointer;
+    transition: 0.2s linear;
+}
+
+.container-button button:hover {
+    background-color: whitesmoke;
+    color: black;
+}

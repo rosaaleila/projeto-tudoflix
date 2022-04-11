@@ -1,0 +1,59 @@
+.container-poster {
+    width: 160px;
+    height: 260px;
+    transition: linear 0.2s;
+}
+
+.container-poster img {
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+}
+
+.container-cards-maiscurtidos,
+.container-cards-lancamentos,
+.container-cards-populares,
+.container-cards-bemavaliados {
+    height: 50%;
+}
+
+.container-maiscurtidos,
+.container-lancamentos,
+.container-populares,
+.container-bemavaliados {
+    display: flex;
+    gap: 10px;
+    border: none;
+}
+
+.cards-sessao,
+.cards-series {
+    padding: 20px 5%;
+}
+
+.cards-sessao,
+.cards-series h2 {
+    margin-bottom: 5px;
+}
+
+.container-poster:hover {
+    transform: scale(120%);
+    box-shadow: 5px 5px 20px rgb(21, 15, 15);
+}
+
+.container-backdrop {
+    width: 330px;
+    height: 240px;
+    transition: linear 0.2s;
+}
+
+.container-backdrop img {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+}
+
+.container-backdrop:hover {
+    transform: scale(110%);
+    box-shadow: 5px 5px 20px rgb(21, 15, 15);
+}

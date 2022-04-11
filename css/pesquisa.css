@@ -1,0 +1,6 @@
+.container-cards-pesquisa {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10% 5%;
+    gap: 10px;
+}
