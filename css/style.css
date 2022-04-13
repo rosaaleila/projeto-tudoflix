@@ -10,7 +10,7 @@ body {
 
 section {
     background-color: black;
-    height: calc(100vh - 100px);
+    height: calc(90vh - 100px);
 }
 
 .home {

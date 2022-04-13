@@ -165,7 +165,7 @@ const carregarEmBreve = async () => {
     const filmes = await buscarEmBreve()
     const container = document.getElementById('container-lancamentos')
 
-    for (let cont = 0; cont < 8; cont++) {
+    for (let cont = 0; cont < 10; cont++) {
 
         container.appendChild(await criarCardEmBreve(cont))
 
@@ -179,7 +179,7 @@ const carregarMaisCurtidos = async () => {
     const filmes = await buscarMaisCurtidos()
     const container = document.getElementById('container-mais-curtidos')
 
-    for (let cont = 0; cont < 8; cont++) {
+    for (let cont = 0; cont < 10; cont++) {
 
         container.appendChild(await criarCardMaisCurtido(cont))
 
@@ -191,7 +191,7 @@ const carregarPopulares = async () => {
 
     const container = document.getElementById('container-populares')
 
-    for (let cont = 0; cont < 8; cont++) {
+    for (let cont = 0; cont < 10; cont++) {
 
         container.appendChild(await criarCardPopulares(cont))
 
@@ -204,7 +204,7 @@ const carregarBemAvaliados = async () => {
 
     const container = document.getElementById('container-bemavaliados')
 
-    for (let cont = 2; cont < 6; cont++) {
+    for (let cont = 2; cont < 7; cont++) {
 
         container.appendChild(await criarCardBemAvaliado(cont))
 
