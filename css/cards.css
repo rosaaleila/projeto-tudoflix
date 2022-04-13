@@ -1,6 +1,24 @@
+.container-poster-pesquisa {
+    width: 10%;
+    height: 70%;
+    transition: linear 0.3s;
+}
+
+.container-poster-pesquisa img {
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+    border: none;
+}
+
+.container-poster-pesquisa:hover {
+    transform: scale(120%);
+    box-shadow: 5px 5px 20px rgb(21, 15, 15);
+}
+
 .container-poster {
-    width: 160px;
-    height: 260px;
+    width: 10%;
+    height: 70%;
     transition: linear 0.3s;
 }
 
@@ -8,6 +26,7 @@
     width: 100%;
     height: 100%;
     border-radius: 2px;
+    border: none;
 }
 
 .container-cards-maiscurtidos,
@@ -22,18 +41,17 @@
 .container-populares,
 .container-bemavaliados {
     display: flex;
-    gap: 10px;
-    border: none;
+    gap: 5px;
+    height: 100%;
 }
 
 .cards-sessao,
 .cards-series {
-    padding: 20px 5%;
+    padding: 20px 5% 10px;
 }
 
-.cards-sessao,
-.cards-series h2 {
-    margin-bottom: 5px;
+.container-poster:nth-child(n+11) {
+    display: none;
 }
 
 .container-poster:hover {
@@ -41,12 +59,16 @@
     box-shadow: 5px 5px 20px rgb(21, 15, 15);
 }
 
+
+/* 
 .container-backdrop {
     width: 340px;
     height: 245px;
     transition: linear 0.2s;
-}
+} */
 
+
+/* 
 .container-backdrop img {
     width: 100%;
     height: 100%;
@@ -56,4 +78,4 @@
 .container-backdrop:hover {
     transform: scale(110%);
     box-shadow: 5px 5px 20px rgb(21, 15, 15);
-}
+} */

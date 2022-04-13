@@ -40,7 +40,6 @@ const buscarSerieNome = async(nome) => {
     const data = await response.json()
     return data.results
 
-
 }
 
 /**************** funções para criação de cards ********************/
@@ -56,9 +55,17 @@ const criarCardsFilmes = async(id, parametro) => {
 
     const caminhoPoster = 'https://image.tmdb.org/t/p/original'
 
-    const urlPoster = filme.poster_path
-    const poster = caminhoPoster + urlPoster
-    imagemPoster.src = poster
+    if (filme.poster_path == null) {
+        imagemPoster.src = '../imgs/img-erro.png'
+    }
+
+    if (filme.poster_path != null) {
+        const urlPoster = filme.poster_path
+        const poster = caminhoPoster + urlPoster
+        imagemPoster.src = poster
+    }
+
+    containerPoster.title = filme.title
 
     containerPoster.setAttribute('class', 'container-poster')
 
@@ -79,11 +86,19 @@ const criarCardsSeries = async(id, parametro) => {
 
     const caminhoPoster = 'https://image.tmdb.org/t/p/original'
 
-    const urlPoster = serie.poster_path
-    const poster = caminhoPoster + urlPoster
-    imagemPoster.src = poster
+    if (serie.poster_path == null) {
+        imagemPoster.src = '../imgs/img-erro.png'
+    }
 
-    containerPoster.setAttribute('class', 'container-poster')
+    if (serie.poster_path != null) {
+        const urlPoster = serie.poster_path
+        const poster = caminhoPoster + urlPoster
+        imagemPoster.src = poster
+    }
+
+    containerPoster.title = serie.name
+
+    containerPoster.setAttribute('class', 'container-poster-pesquisa')
 
     containerPoster.appendChild(imagemPoster)
 
@@ -97,39 +112,56 @@ const criarCardsFilmeNome = async(nome, id) => {
     const filmes = await buscarFilmeNome(nome)
     const filme = filmes[id]
 
+    if (filme.adult == true) {
+        console.log('etcha')
+    }
+
     const containerPoster = document.createElement('div')
     const imagemPoster = document.createElement('img')
 
     const caminhoPoster = 'https://image.tmdb.org/t/p/original'
 
-    const urlPoster = filme.poster_path
-    const poster = caminhoPoster + urlPoster
-    imagemPoster.src = poster
+    if (filme.poster_path != null) {
+        const urlPoster = filme.poster_path
+        const poster = caminhoPoster + urlPoster
+        imagemPoster.src = poster
+    }
 
-    containerPoster.setAttribute('class', 'container-poster')
+    containerPoster.title = filme.title
+
+    containerPoster.setAttribute('class', 'container-poster-pesquisa')
 
     containerPoster.appendChild(imagemPoster)
 
     return containerPoster
+
 
 }
 
 // funcao para criar cards de series (pesquisa por nome)
 const criarCardsSerieNome = async(nome, id) => {
 
-    const filmes = await buscarSerieNome(nome)
-    const filme = filmes[id]
+    const series = await buscarSerieNome(nome)
+    const serie = series[id]
 
     const containerPoster = document.createElement('div')
     const imagemPoster = document.createElement('img')
 
     const caminhoPoster = 'https://image.tmdb.org/t/p/original'
 
-    const urlPoster = filme.poster_path
-    const poster = caminhoPoster + urlPoster
-    imagemPoster.src = poster
+    if (serie.poster_path == null) {
+        imagemPoster.src = '../imgs/img-erro.png'
+    }
 
-    containerPoster.setAttribute('class', 'container-poster')
+    if (serie.poster_path != null) {
+        const urlPoster = serie.poster_path
+        const poster = caminhoPoster + urlPoster
+        imagemPoster.src = poster
+    }
+
+    containerPoster.title = serie.name
+
+    containerPoster.setAttribute('class', 'container-poster-pesquisa')
 
     containerPoster.appendChild(imagemPoster)
 
@@ -142,7 +174,7 @@ const criarCardsSerieNome = async(nome, id) => {
 // funcao para adicionar os cards (filmes) a seus devidos container
 const carregarCardsFilmes = async(container, opcao) => {
 
-    for (let cont = 0; cont <= 10; cont++) {
+    for (let cont = 0; cont <= 20; cont++) {
         container.appendChild(await criarCardsFilmes(cont, opcao))
     }
 
@@ -175,7 +207,6 @@ const carregarSerieFilme = async(nome) => {
 
 }
 
-
 /**************** outras funções********************/
 
 // funcao do listener, para a atualizar a pagina e adicionar os resultados da pesquisa
@@ -188,7 +219,9 @@ const atualizarPagina = async() => {
         const main = document.getElementById('container-principal')
         main.innerHTML = ""
 
+        const containerPai = document.createElement('div')
         const container = document.createElement('div')
+        containerPai.appendChild(container)
         container.setAttribute('class', 'container-cards-pesquisa')
         container.setAttribute('id', 'container-cards-pesquisa')
 

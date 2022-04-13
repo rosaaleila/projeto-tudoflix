@@ -10,14 +10,16 @@ body {
 
 section {
     background-color: black;
-    height: calc(90vh - 100px);
+    height: calc(100vh - 100px);
 }
 
 .home {
     height: 100vh;
 }
 
+
 /* estilizando a header */
+
 header {
     height: 100px;
     width: 100vw;
@@ -81,5 +83,5 @@ span {
 }
 
 h2 {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
 }

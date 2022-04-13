@@ -1,0 +1,122 @@
+@media only screen and (max-width: 992px) {
+    .container-poster:nth-child(n+10) {
+        display: none;
+    }
+    .container-navegacao {
+        width: 70%;
+    }
+    .container-poster {
+        width: 120px;
+    }
+    h2 {
+        font-size: 1.1rem;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .container-home {
+        background-position: center top !important;
+    }
+    header {
+        padding: 0 3% 0;
+        height: 90px;
+    }
+    .lista-navegacao a {
+        color: whitesmoke;
+        font-size: 1rem;
+    }
+    .lista-navegacao input {
+        width: 100px;
+    }
+    .container-navegacao {
+        width: 80%;
+    }
+    .container-logo {
+        height: 30px;
+        width: 100px;
+    }
+    .cards-sessao,
+    .cards-series {
+        padding: 20px 3% 10px;
+    }
+    .container-poster:nth-child(n+7) {
+        display: none;
+    }
+    .container-maiscurtidos,
+    .container-lancamentos,
+    .container-populares,
+    .container-bemavaliados {
+        display: flex;
+        justify-content: space-between;
+    }
+    .container-poster {
+        width: 120px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .container-home {
+        background-position: center !important;
+    }
+    header {
+        padding: 0 3% 0;
+        height: 90px;
+        align-items: center;
+    }
+    .lista-navegacao a {
+        color: whitesmoke;
+        font-size: .9rem;
+    }
+    .lista-navegacao input {
+        width: 100px;
+    }
+    .container-navegacao {
+        width: 100%;
+    }
+    .container-logo {
+        display: none;
+    }
+    .cards-sessao,
+    .cards-series {
+        padding: 20px 3% 10px;
+    }
+    .container-poster:nth-child(n+5) {
+        display: none;
+    }
+    .container-maiscurtidos,
+    .container-lancamentos,
+    .container-populares,
+    .container-bemavaliados {
+        display: flex;
+        justify-content: space-between;
+    }
+    .container-poster {
+        width: 120px;
+    }
+    .home {
+        justify-content: center;
+    }
+    .container-infos {
+        width: 90%;
+        display: flex;
+    }
+    .container-infos p {
+        display: none;
+    }
+    .container-infos h1 {
+        font-size: 1.7rem;
+    }
+    .btnAssistir,
+    .btnSaibaMais {
+        width: 90px;
+        height: 20px;
+    }
+}
+
+
+/* 480px // Extra small screen
+768px // Small screen
+992px // Medium screen
+1200px // Large screen
+1600px // Extra Large screen
+1900px // Extra Large screen */
