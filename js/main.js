@@ -1,57 +1,226 @@
 'use strict'
 
+/**************** funções de busca ********************/
 
-// função que busca e retorna um filme aleatorio na api
-const buscarFilme = async () => {
+// função que busca e retorna um filme na api de acordo com o parametro especificado
+const buscarFilme = async(opcao) => {
+
+    const url = `https://api.themoviedb.org/3/movie/${opcao}?api_key=e981f4402e79521ed4b4a8ba6dab1c32&language=pt-BR&page=1`
+    const response = await fetch(url)
+    const data = await response.json()
+    return data.results
+
+}
+
+// funcao que busca e retorna uma serie na api de acordo com o parametro especificado
+const buscarSerie = async(opcao) => {
+
+    const url = `https://api.themoviedb.org/3/tv/${opcao}?api_key=e981f4402e79521ed4b4a8ba6dab1c32&language=pt-br&page=1`
+    const response = await fetch(url)
+    const data = await response.json()
+    return data.results
+
+}
+
+// funcao para buscar filme pelo nome escrito pelo usuario
+const buscarFilmeNome = async(nome) => {
+
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=e981f4402e79521ed4b4a8ba6dab1c32&query=${nome}&language=pt-BR`
+    const response = await fetch(url)
+    const data = await response.json()
+    return data.results
+
+}
+
+// funcao para buscar serie pelo nome escrito pelo usuario
+const buscarSerieNome = async(nome) => {
+
+    const url = `https://api.themoviedb.org/3/search/tv?api_key=e981f4402e79521ed4b4a8ba6dab1c32&query=${nome}&language=pt-BR`
+    const response = await fetch(url)
+    const data = await response.json()
+    return data.results
+
+
+}
+
+/**************** funções para criação de cards ********************/
+
+// funcao para criar cards de filmes
+const criarCardsFilmes = async(id, parametro) => {
+
+    const filmes = await buscarFilme(parametro)
+    const filme = filmes[id]
+
+    const containerPoster = document.createElement('div')
+    const imagemPoster = document.createElement('img')
+
+    const caminhoPoster = 'https://image.tmdb.org/t/p/original'
+
+    const urlPoster = filme.poster_path
+    const poster = caminhoPoster + urlPoster
+    imagemPoster.src = poster
+
+    containerPoster.setAttribute('class', 'container-poster')
+
+    containerPoster.appendChild(imagemPoster)
+
+    return containerPoster
+
+}
+
+// funcao para criar cards de series
+const criarCardsSeries = async(id, parametro) => {
+
+    const series = await buscarSerie(parametro)
+    const serie = series[id]
+
+    const containerPoster = document.createElement('div')
+    const imagemPoster = document.createElement('img')
+
+    const caminhoPoster = 'https://image.tmdb.org/t/p/original'
+
+    const urlPoster = serie.poster_path
+    const poster = caminhoPoster + urlPoster
+    imagemPoster.src = poster
+
+    containerPoster.setAttribute('class', 'container-poster')
+
+    containerPoster.appendChild(imagemPoster)
+
+    return containerPoster
+
+}
+
+// funcao para criar cards de filmes (pesquisa por nome)
+const criarCardsFilmeNome = async(nome, id) => {
+
+    const filmes = await buscarFilmeNome(nome)
+    const filme = filmes[id]
+
+    const containerPoster = document.createElement('div')
+    const imagemPoster = document.createElement('img')
+
+    const caminhoPoster = 'https://image.tmdb.org/t/p/original'
+
+    const urlPoster = filme.poster_path
+    const poster = caminhoPoster + urlPoster
+    imagemPoster.src = poster
+
+    containerPoster.setAttribute('class', 'container-poster')
+
+    containerPoster.appendChild(imagemPoster)
+
+    return containerPoster
+
+}
+
+// funcao para criar cards de series (pesquisa por nome)
+const criarCardsSerieNome = async(nome, id) => {
+
+    const filmes = await buscarSerieNome(nome)
+    const filme = filmes[id]
+
+    const containerPoster = document.createElement('div')
+    const imagemPoster = document.createElement('img')
+
+    const caminhoPoster = 'https://image.tmdb.org/t/p/original'
+
+    const urlPoster = filme.poster_path
+    const poster = caminhoPoster + urlPoster
+    imagemPoster.src = poster
+
+    containerPoster.setAttribute('class', 'container-poster')
+
+    containerPoster.appendChild(imagemPoster)
+
+    return containerPoster
+
+}
+
+/**************** funções para carregar cards ********************/
+
+// funcao para adicionar os cards (filmes) a seus devidos container
+const carregarCardsFilmes = async(container, opcao) => {
+
+    for (let cont = 0; cont <= 10; cont++) {
+        container.appendChild(await criarCardsFilmes(cont, opcao))
+    }
+
+}
+
+// funcao para adicionar os cards (filmes) a seus devidos container
+const carregarCardsSeries = async(container, opcao) => {
+
+    for (let cont = 0; cont <= 10; cont++) {
+        container.appendChild(await criarCardsSeries(cont, opcao))
+    }
+
+}
+
+// funcao para carregar os resultados da pesquisa por nome
+const carregarSerieFilme = async(nome) => {
+
+    const filmes = await buscarFilmeNome(nome)
+    const series = await buscarSerieNome(nome)
+    const total = filmes.length + series.length
+
+    const containerCards = document.getElementById('container-cards-pesquisa')
+
+    for (let cont = 0; cont < total; cont++) {
+
+        containerCards.appendChild(await criarCardsFilmeNome(nome, cont))
+        containerCards.appendChild(await criarCardsSerieNome(nome, cont))
+
+    }
+
+}
+
+
+/**************** outras funções********************/
+
+// funcao do listener, para a atualizar a pagina e adicionar os resultados da pesquisa
+const atualizarPagina = async() => {
+
+    const nome = document.getElementById('pesquisar').value
+
+    if (nome != "") {
+
+        const main = document.getElementById('container-principal')
+        main.innerHTML = ""
+
+        const container = document.createElement('div')
+        container.setAttribute('class', 'container-cards-pesquisa')
+        container.setAttribute('id', 'container-cards-pesquisa')
+
+        main.appendChild(container)
+        carregarSerieFilme(nome)
+
+    }
+
+}
+
+// funcao que inicializa todas as funcoes necessarias para carregar o site
+const carregarInfos = async() => {
+
+    const containerEmBreve = document.getElementById('container-lancamentos')
+    const containerMaisCurtidos = document.getElementById('container-mais-curtidos')
+    const containerBemAvaliados = document.getElementById('container-bemavaliados')
+    const containerPopulares = document.getElementById('container-populares')
+
+    carregarCardsSeries(containerPopulares, 'popular')
+    carregarCardsSeries(containerBemAvaliados, 'top_rated')
+    carregarCardsFilmes(containerEmBreve, 'upcoming')
+    carregarCardsFilmes(containerMaisCurtidos, 'top_rated')
+    atualizarBanner()
+
+}
+
+// funcao para criar as infos na home
+const atualizarBanner = async() => {
 
     const idFilme = Math.floor(Math.random() * 20)
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=e981f4402e79521ed4b4a8ba6dab1c32&language=pt-BR&page=1`
-    const response = await fetch(url)
-    const data = await response.json()
-    return data.results[idFilme]
-
-}
-
-const buscarMaisCurtidos = async () => {
-
-    const url = 'https://api.themoviedb.org/3/movie/top_rated?api_key=e981f4402e79521ed4b4a8ba6dab1c32&language=pt-BR&page=1'
-    const response = await fetch(url)
-    const data = await response.json()
-    return data.results
-
-}
-
-const buscarEmBreve = async () => {
-
-    const url = 'https://api.themoviedb.org/3/movie/upcoming?api_key=e981f4402e79521ed4b4a8ba6dab1c32&language=pt-BR&page=1'
-    const response = await fetch(url)
-    const data = await response.json()
-    return data.results
-
-}
-
-const buscarBemAvaliados = async () => {
-
-    const url = 'https://api.themoviedb.org/3/tv/top_rated?api_key=e981f4402e79521ed4b4a8ba6dab1c32&language=pt-br&page=1'
-    const response = await fetch(url)
-    const data = await response.json()
-    return data.results
-
-}
-
-const buscarPopulares = async () => {
-
-    const url = 'https://api.themoviedb.org/3/tv/popular?api_key=e981f4402e79521ed4b4a8ba6dab1c32&language=pt-BR&page=1'
-    const response = await fetch(url)
-    const data = await response.json()
-    return data.results
-
-}
-
-// funcao para criar as infos na
-const atualizarBanner = async () => {
-
-    const filme = await buscarFilme()
+    const filmes = await buscarFilme('popular')
+    const filme = filmes[idFilme]
 
     const caminho = 'https://image.tmdb.org/t/p/original'
     const urlImagem = filme.backdrop_path
@@ -70,277 +239,5 @@ const atualizarBanner = async () => {
 
 }
 
-const criarCardMaisCurtido = async (id) => {
-
-    // selecionando o filme pelo seu id
-    const filmesCurtidos = await buscarMaisCurtidos()
-    const filme = filmesCurtidos[id]
-
-    const containerPoster = document.createElement('div')
-    const imagemPoster = document.createElement('img')
-
-    const caminhoPoster = 'https://image.tmdb.org/t/p/original'
-    const urlPoster = filme.poster_path
-    const poster = caminhoPoster + urlPoster
-
-    imagemPoster.src = poster
-
-    containerPoster.setAttribute('class', 'container-poster')
-
-    containerPoster.appendChild(imagemPoster)
-
-    return containerPoster
-
-}
-
-const criarCardEmBreve = async (id) => {
-
-    const filmesEmbreve = await buscarEmBreve()
-    const filme = filmesEmbreve[id]
-
-    const containerPoster = document.createElement('div')
-    const imagemPoster = document.createElement('img')
-
-    const caminhoPoster = 'https://image.tmdb.org/t/p/original'
-    const urlPoster = filme.poster_path
-    const poster = caminhoPoster + urlPoster
-
-    imagemPoster.src = poster
-
-    containerPoster.setAttribute('class', 'container-poster')
-
-    containerPoster.appendChild(imagemPoster)
-
-    return containerPoster
-
-}
-
-const criarCardPopulares = async (id) => {
-
-    // selecionando o filme pelo seu id
-    const filmesCurtidos = await buscarPopulares()
-    const filme = filmesCurtidos[id]
-
-    const containerPoster = document.createElement('div')
-    const imagemPoster = document.createElement('img')
-
-    const caminhoPoster = 'https://image.tmdb.org/t/p/original'
-    const urlPoster = filme.poster_path
-    const poster = caminhoPoster + urlPoster
-
-    imagemPoster.src = poster
-
-    containerPoster.setAttribute('class', 'container-poster')
-
-    containerPoster.appendChild(imagemPoster)
-
-    return containerPoster
-
-}
-
-const criarCardBemAvaliado = async (id) => {
-
-    const series = await buscarBemAvaliados()
-    const serie = series[id]
-
-    const containerBackdrop = document.createElement('div')
-    const imagemBackdrop = document.createElement('img')
-
-    const caminhoBackdrop = 'https://image.tmdb.org/t/p/original'
-    const urlBackdrop = serie.backdrop_path
-    const backdrop = caminhoBackdrop + urlBackdrop
-
-    imagemBackdrop.src = backdrop
-
-    containerBackdrop.setAttribute('class', 'container-backdrop')
-
-    containerBackdrop.appendChild(imagemBackdrop)
-
-    return containerBackdrop
-
-}
-
-const carregarEmBreve = async () => {
-
-    const filmes = await buscarEmBreve()
-    const container = document.getElementById('container-lancamentos')
-
-    for (let cont = 0; cont < 10; cont++) {
-
-        container.appendChild(await criarCardEmBreve(cont))
-
-    }
-
-}
-
-
-const carregarMaisCurtidos = async () => {
-
-    const filmes = await buscarMaisCurtidos()
-    const container = document.getElementById('container-mais-curtidos')
-
-    for (let cont = 0; cont < 10; cont++) {
-
-        container.appendChild(await criarCardMaisCurtido(cont))
-
-    }
-
-}
-
-const carregarPopulares = async () => {
-
-    const container = document.getElementById('container-populares')
-
-    for (let cont = 0; cont < 10; cont++) {
-
-        container.appendChild(await criarCardPopulares(cont))
-
-    }
-
-}
-
-
-const carregarBemAvaliados = async () => {
-
-    const container = document.getElementById('container-bemavaliados')
-
-    for (let cont = 2; cont < 7; cont++) {
-
-        container.appendChild(await criarCardBemAvaliado(cont))
-
-    }
-
-}
-
-const carregarCards = async () => {
-
-    carregarBemAvaliados()
-    carregarPopulares()
-    carregarMaisCurtidos()
-    carregarEmBreve()
-    atualizarBanner()
-
-}
-
-const criarCard = async () => {
-
-    const filmesCurtidos = await buscarPopulares()
-    const filme = filmesCurtidos[id]
-
-    const containerPoster = document.createElement('div')
-    const imagemPoster = document.createElement('img')
-
-    const caminhoPoster = 'https://image.tmdb.org/t/p/original'
-    const urlPoster = filme.poster_path
-    const poster = caminhoPoster + urlPoster
-
-    imagemPoster.src = poster
-
-    containerPoster.setAttribute('class', 'container-poster')
-
-    containerPoster.appendChild(imagemPoster)
-
-    return containerPoster
-}
-
-const buscarFilmeNome = async (nome) => {
-
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=e981f4402e79521ed4b4a8ba6dab1c32&query=${nome}&language=pt-BR`
-    const response = await fetch(url)
-    const data = await response.json()
-    return data.results
-
-}
-
-const buscarSerieNome = async (nome) => {
-
-    const url = `https://api.themoviedb.org/3/search/tv?api_key=e981f4402e79521ed4b4a8ba6dab1c32&query=${nome}&language=pt-BR`
-    const response = await fetch(url)
-    const data = await response.json()
-    return data.results
-
-}
-
-const atualizarPagina = async () => {
-
-    const nome = document.getElementById('pesquisar').value
-    if (nome != "") {
-
-        const main = document.getElementById('container-principal')
-        main.innerHTML = ""
-
-        const container = document.createElement('div')
-        container.setAttribute('class', 'container-cards-pesquisa')
-        container.setAttribute('id', 'container-cards-pesquisa')
-
-        main.appendChild(container)
-        carregarSerieFilme(nome)
-
-    }
-
-}
-
-const criarCardsFilmeNome = async (nome, id) => {
-
-    const filmes = await buscarFilmeNome(nome)
-    const filme = filmes[id]
-
-    const containerPoster = document.createElement('div')
-    const imagemPoster = document.createElement('img')
-
-    const caminhoPoster = 'https://image.tmdb.org/t/p/original'
-    const urlPoster = filme.poster_path
-    const poster = caminhoPoster + urlPoster
-
-    imagemPoster.src = poster
-
-    containerPoster.setAttribute('class', 'container-poster')
-
-    containerPoster.appendChild(imagemPoster)
-
-    return containerPoster
-
-}
-
-const criarCardsSerieNome = async (nome, id) => {
-
-    const filmes = await buscarSerieNome(nome)
-    const filme = filmes[id]
-
-    const containerPoster = document.createElement('div')
-    const imagemPoster = document.createElement('img')
-
-    const caminhoPoster = 'https://image.tmdb.org/t/p/original'
-    const urlPoster = filme.poster_path
-    const poster = caminhoPoster + urlPoster
-
-    imagemPoster.src = poster
-
-    containerPoster.setAttribute('class', 'container-poster')
-
-    containerPoster.appendChild(imagemPoster)
-
-    return containerPoster
-
-}
-
-const carregarSerieFilme = async (nome) => {
-
-    const filmes = await buscarFilmeNome(nome)
-    const series = await buscarSerieNome(nome)
-    const total = filmes.length + series.length
-
-    const containerCards = document.getElementById('container-cards-pesquisa')
-
-    for (let cont = 0; cont < total; cont++) {
-
-        containerCards.appendChild(await criarCardsFilmeNome(nome, cont))
-        containerCards.appendChild(await criarCardsSerieNome(nome, cont))
-
-    }
-
-}
-
-
-carregarCards()
+carregarInfos()
 document.getElementById('pesquisar').addEventListener('focusout', atualizarPagina)
